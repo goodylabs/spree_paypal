@@ -18,9 +18,7 @@ module SpreePaypal
     end
 
     initializer "spree_paypal.register.payment_methods" do |app|
-      app.config.spree.payment_methods += [
-        Spree::BillingIntegration::PaypalCreditCard
-      ]
+      app.config.spree.payment_methods << Spree::Gateway::PayPal
     end
 
     config.to_prepare &method(:activate).to_proc
