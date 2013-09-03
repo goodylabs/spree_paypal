@@ -36,5 +36,12 @@ module Spree
       response
     end
 
+    def void(response_code, credit_card, options = {})
+      amount = credit_card[:subtotal].to_i + credit_card[:tax].to_i + credit_card[:shipping].to_i
+      options[:currency] = credit_card[:currency]
+      Rails.logger.warn "====> PayPal void: amount: #{amount}, response_code: #{response_code}, options: #{options}"
+      provider.refund(amount, response_code, options)
+    end
+
   end
 end
